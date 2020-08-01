@@ -15,16 +15,21 @@ export default {
   name: "App",
   data() {
     return {
-      tasks: [
-        { name: "Lavar louça", completed: false },
-        { name: "Limpar sala", completed: true },
-      ],
+      tasks: [],
     };
   },
   components: {
     TaskProgress,
     AddTask,
     TasksList,
+  },
+  watch: {
+    tasks: {
+      deep: true,
+      handler() {
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+      },
+    },
   },
   methods: {
     addTask(task) {
@@ -48,6 +53,10 @@ export default {
 
       return Math.round((completed / tasksTotal) * 100) || 0;
     },
+  },
+  created() {
+    const jsonTask = localStorage.getItem("tasks");
+    this.tasks = JSON.parse(jsonTask) || [];
   },
 };
 </script>
