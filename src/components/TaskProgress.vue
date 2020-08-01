@@ -1,25 +1,20 @@
 <template>
   <div>
     <h1>Tarefas</h1>
-    <span class="progress">{{progress}} {{done}}</span>
+    <div class="task-progress">
+      <span class="progress-value">{{progress}}%</span>
+      <div class="progress-bar" :style="{width: progress +'%'}"></div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "TaskProgress",
-  data() {
-    return {
-      done: 0,
-      inprogress: 0,
-    };
-  },
-  computed: {
-    progress() {
-      if (this.done == 0 || this.inprogress == 0) {
-        return "0 %";
-      }
-      return this.done / this.inprogress + "%";
+  props: {
+    progress: {
+      type: Number,
+      default: 0,
     },
   },
 };
@@ -30,12 +25,29 @@ h1 {
   color: white;
 }
 
-.progress {
-  display: block;
+.task-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 80%;
   margin: 0 auto;
   border: 2px solid white;
-  border-radius: 2px;
+  border-radius: 5px;
   padding: 10px 0;
+  color: white;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: #44ee33;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+.progress-value {
+  z-index: 10;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TaskProgress />
+    <TaskProgress :progress="progress" />
     <AddTask @taskAdded="addTask" />
     <TasksList @taskDeleted="deleteTask" :tasks="tasks" />
   </div>
@@ -39,6 +39,14 @@ export default {
     },
     deleteTask(i) {
       this.tasks.splice(i, 1);
+    },
+  },
+  computed: {
+    progress() {
+      const tasksTotal = this.tasks.length;
+      const completed = this.tasks.filter((t) => t.completed).length;
+
+      return Math.round((completed / tasksTotal) * 100) || 0;
     },
   },
 };

@@ -1,7 +1,11 @@
 <template>
-  <div class="task-card" :class="task.completed ? 'done' : '' ">
+  <div
+    class="task-card"
+    :class="task.completed ? 'done' : '' "
+    @click="task.completed = !task.completed"
+  >
     <span @click="$emit('taskDeleted', task)" class="close">x</span>
-    <span @click="task.completed = !task.completed">{{task.name}}</span>
+    <span>{{task.name}}</span>
   </div>
 </template>
 
