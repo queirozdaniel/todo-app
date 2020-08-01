@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <span
-      class="task-card"
-      :class="info.completed ? 'done' : '' "
-      @click="info.completed = !info.completed"
-    >{{info.name}}</span>
+  <div class="task-card" :class="task.completed ? 'done' : '' ">
+    <span @click="$emit('taskDeleted', task)" class="close">x</span>
+    <span @click="task.completed = !task.completed">{{task.name}}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: "Task",
-  props: ["info"],
+  props: ["task"],
   data() {
     return {
       completed: false,
@@ -22,6 +19,7 @@ export default {
 
 <style scoped>
 .task-card {
+  position: relative;
   background-color: #4e3;
   padding: 20px 30px;
   margin: 15px;
@@ -31,6 +29,7 @@ export default {
   color: white;
   max-width: 200px;
   cursor: pointer;
+  user-select: none;
 }
 
 .task-card:hover {
@@ -42,5 +41,12 @@ export default {
   background-color: #e53;
   border: 1px solid black;
   text-decoration: line-through;
+}
+
+.close {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+  font-size: 0.8rem;
 }
 </style>

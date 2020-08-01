@@ -1,6 +1,14 @@
 <template>
   <div class="task-list">
-    <Task v-for="(task, index) in tasks" :key="index" :info="task" />
+    <template v-if="tasks.length">
+      <Task
+        v-for="(task, index) in tasks"
+        :key="index"
+        :task="task"
+        @taskDeleted="$emit('taskDeleted', i)"
+      />
+    </template>
+    <p v-else class="no-task">Começe a se organizar agora!!</p>
   </div>
 </template>
 
@@ -24,5 +32,11 @@ export default {
 <style scoped>
 .task-list {
   display: flex;
+}
+
+.no-task {
+  margin: 0 auto;
+  color: #aaa;
+  font-size: 2rem;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="add-task">
     <input
       class="form-element"
-      v-model="info"
+      v-model="name"
       @keydown.enter="add"
       type="text"
       placeholder="Nova tarefa ?"
@@ -16,13 +16,13 @@ export default {
   name: "AddTask",
   data() {
     return {
-      info: "",
+      name: "",
     };
   },
   methods: {
     add() {
-      this.$emit("taskAdded", { info: this.info });
-      this.info = "";
+      this.$emit("taskAdded", { name: this.name });
+      this.name = "";
     },
   },
 };

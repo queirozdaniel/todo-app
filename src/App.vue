@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <TaskProgress />
-    <AddTask />
-    <TasksList :tasks="tasks" />
+    <AddTask @taskAdded="addTask" />
+    <TasksList @taskDeleted="deleteTask" :tasks="tasks" />
   </div>
 </template>
 
@@ -27,7 +27,19 @@ export default {
     TasksList,
   },
   methods: {
-    made() {},
+    addTask(task) {
+      const sameName = (t) => t.name === task.name;
+      const reallyNew = this.tasks.filter(sameName).length === 0;
+      if (reallyNew) {
+        this.tasks.push({
+          name: task.name,
+          completed: false,
+        });
+      }
+    },
+    deleteTask(i) {
+      this.tasks.splice(i, 1);
+    },
   },
 };
 </script>
